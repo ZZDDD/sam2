@@ -14,9 +14,9 @@ model_cfg = "configs/sam2.1/sam2.1_hiera_t.yaml"
 predictor = build_sam2_video_predictor(model_cfg, sam2_checkpoint, device=device)
 
 # Base paths
-data_base_path = "/home/dell/sda/datasets/VideoCube/MGIT/data/test"
-gt_base_path = "/home/dell/sda/datasets/VideoCube/sam_track_homework/groundtruth"
-test_list_path = "/home/dell/sda/datasets/VideoCube/sam_track_homework/test_list.txt"
+data_base_path = "/data1/zzd/VideoCube/MGIT/data/test"
+gt_base_path = "/data1/zzd/VideoCube/sam_track_homework/groundtruth"
+test_list_path = "/data1/zzd/VideoCube/sam_track_homework/test_list.txt"
 
 # Read test sequences
 with open(test_list_path, 'r') as f:
@@ -73,7 +73,7 @@ for sequence in sequences:
         mask = (out_mask_logits[0] > 0.0).cpu().numpy().squeeze()
         video_segments[out_frame_idx] = mask
 
-    predictor.reset_state()  # Reset predictor state
+    predictor.reset_state(inference_state)  # Reset predictor state
     
     # Convert masks to bounding boxes
     bboxes = []
@@ -103,7 +103,7 @@ for sequence in sequences:
             f.write(f"{runtime}\n")
     
     # Clean up inference state
-    predictor.reset_state(inference_state)
+    # predictor.reset_state(inference_state
 
 # Create zip file
 os.system("zip -r submission.zip tracker")
