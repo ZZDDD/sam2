@@ -30,7 +30,7 @@ os.makedirs("tracker/time", exist_ok=True)
 
 already_processed = set()
 already_processed.update({"001", "006", "007", "012", "022", "038", "045", "061", "074", "079", "087", "089", 
-                          "107", "111", "114"})
+                          "107", "111", "114","117", "148"})
 fail_processed = set()
 fail_processed.update({"093"})
 
