@@ -22,14 +22,24 @@ test_list_path = "/data1/zzd/VideoCube/sam_track_homework/test_list.txt"
 with open(test_list_path, 'r') as f:
     sequences = [line.strip() for line in f if line.strip()]
 
+print(f"Total sequences to process: {len(sequences)}")
+
 # Create output directories
 os.makedirs("tracker/result", exist_ok=True)
 os.makedirs("tracker/time", exist_ok=True)
 
+already_processed = set()
+already_processed.update({"001", "006", "007", "012", "022", "038", "045", "061", "074", "079", "087", "089", "107"})
+fail_processed = set()
+fail_processed.update({"093"})
+
 # Process each sequence
 for sequence in sequences:
-    if sequence == "001":
-        print("Skipping sequence 001")
+    if sequence in already_processed:
+        print(f"Skipping already processed sequence {sequence}")
+        continue
+    if sequence in fail_processed:
+        print(f"Skipping failed sequence {sequence}")
         continue
     print(f"Processing sequence {sequence}")
     
