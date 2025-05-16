@@ -29,18 +29,17 @@ os.makedirs("tracker/result", exist_ok=True)
 os.makedirs("tracker/time", exist_ok=True)
 
 already_processed = set()
-already_processed.update({"001", "006", "007", "012", "022", "038", "045", "061", "074", "079", "087", "089", "107"})
+already_processed.update({"001", "006", "007", "012", "022", "038", "045", "061", "074", "079", "087", "089", 
+                          "107", "111"})
 fail_processed = set()
 fail_processed.update({"093"})
 
+# remove already processed and failed sequences from sequences
+sequences = [seq for seq in sequences if seq not in already_processed and seq not in fail_processed]
+print(f"Sequences after filtering: {len(sequences)}")
+
 # Process each sequence
 for sequence in sequences:
-    if sequence in already_processed:
-        print(f"Skipping already processed sequence {sequence}")
-        continue
-    if sequence in fail_processed:
-        print(f"Skipping failed sequence {sequence}")
-        continue
     print(f"Processing sequence {sequence}")
     
     # Set video directory (assuming frames are directly in sequence folder)
