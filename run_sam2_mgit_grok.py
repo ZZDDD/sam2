@@ -30,7 +30,7 @@ os.makedirs("tracker/time", exist_ok=True)
 
 already_processed = set()
 already_processed.update({"001", "006", "007", "012", "022", "038", "045", "061", "074", "079", "087", "089", 
-                          "107", "111"})
+                          "107", "111", "114"})
 fail_processed = set()
 fail_processed.update({"093"})
 
@@ -53,12 +53,16 @@ for sequence in sequences:
     xmin, ymin, width, height = map(float, first_line.split(','))  # Split on commas
     box = np.array([xmin, ymin, xmin + width, ymin + height], dtype=np.float32)
     
-    # Initialize SAM2 inference state
-    inference_state = predictor.init_state(
-        video_path=video_dir,
-        offload_video_to_cpu=True,
-        offload_state_to_cpu=False,
-    )
+    try:
+        # Initialize SAM2 inference state
+        inference_state = predictor.init_state(
+            video_path=video_dir,
+            offload_video_to_cpu=True,
+            offload_state_to_cpu=False,
+        )
+    except Exception as e: # probably cpu out of memory
+        print(f"Failed to initialize inference state for sequence {sequence}: {e}")
+        continue
     
     # Add box prompt for first frame
     ann_frame_idx = 0
