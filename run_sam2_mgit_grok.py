@@ -32,9 +32,10 @@ already_processed = set()
 already_processed.update({"001", "006", "007", "012", "022", "038", "045", "061", "074", "079", "087", "089", 
                           "107", "111", "114","117", "148",
                           "255", "275", "277",
-                          "311"})
+                          "311",
+                          "418", "449"})
 fail_processed = set()
-fail_processed.update({"093", "181", "230", "286"})
+fail_processed.update({"093", "181", "230", "286", "366"})
 
 # remove already processed and failed sequences from sequences
 sequences = [seq for seq in sequences if seq not in already_processed and seq not in fail_processed]
