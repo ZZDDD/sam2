@@ -13,3 +13,6 @@ demo/backend/checkpoints/*.pt
 nohup.out
 ./nohup.out
 *.out
+submission.zip
+
+annotated_videos
